@@ -1,0 +1,195 @@
+@import 'var.scss';
+@import 'mixin.scss';
+@import 'animation';
+
+#add-task {
+  display: flex;
+  flex-direction: column;
+  max-width: 750px;
+  align-items: center;
+  margin: 5vh auto;
+  padding: 0 30px;
+  position: relative;
+
+  & div {
+    width: 100%;
+    position: relative;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+
+    & input, textarea {
+      transition: all 0.3s;
+      width: 100%;
+      border: none;
+      border-bottom: $input-border;
+      height: auto;
+      outline: none;
+      font-size: 1em;
+      padding-bottom: 9px;
+      -webkit-appearance: none;
+      border-radius: 0;
+
+
+      &:focus {
+        border-bottom: 1px solid $focus-input;
+        box-shadow: 0 1px 0 0 $focus-input;
+
+        & + label {
+          @extend %label-active;
+        }
+      }
+    }
+
+    & input:last-child:focus {
+      box-shadow: none;
+    }
+
+    & textarea {
+      resize: none;
+    }
+
+    & label {
+      position: absolute;
+      left: 0;
+      cursor: text;
+      opacity: .4;
+      transition: all 0.3s;
+    }
+  }
+  & div:first-child {
+    margin-bottom: 20px;
+  }
+
+  & .text-area-flexible {
+    padding-bottom: 10px !important;
+  }
+
+
+  & .character-counter {
+    opacity: .7;
+    align-self: flex-end;
+    font-size: .8em;
+    margin-top: 5px;
+  }
+
+  .wrap-submit {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+  }
+}
+
+.submit {
+  width: auto !important;
+  font-size: .9em !important;
+  text-transform: uppercase;
+  padding: 11px 16px;
+  cursor: pointer;
+  border: none;
+  color: white;
+  background: $brand-color;
+  margin-top: 20px;
+  border-radius: 3px !important;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),
+  0 3px 1px -2px rgba(0,0,0,0.12),
+  0 1px 5px 0 rgba(0,0,0,0.2);
+  transition: background-color .3s;
+  -webkit-appearance: button;
+
+  &:focus {
+    outline: none;
+    border-bottom: 1px solid #9e9e9e !important;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),
+    0 3px 1px -2px rgba(0,0,0,0.12),
+    0 1px 5px 0 rgba(0,0,0,0.2) !important;
+  }
+
+  &:active {
+    margin-top: 21px;
+  }
+
+  &:hover {
+    background: $hover-button;
+  }
+}
+
+.label-active {
+  @extend %label-active;
+}
+
+.wrap-input__chips {
+  transition: all 0.3s;
+  border-bottom: $input-border;
+  cursor: text;
+  display: flex !important;
+  flex-direction: row !important;
+  min-height: 35px !important;
+  flex-wrap: wrap;
+
+  & .chips {
+    width: 100px !important;
+    border-bottom: none !important;
+    min-height: 35px !important;
+  }
+
+  & .chip {
+    background: #e4e4e4;
+    color: rgba(0,0,0, .7);
+    font-size: .95em;
+    border-radius: 15px;
+    flex-direction: row !important;
+    width: auto !important;
+    height: 30px;
+    margin: 0 5px 5px 0 !important;
+    padding: 5px 15px;
+
+    & .chip-close {
+    padding-left: 10px;
+    cursor: pointer;
+    }
+  }
+}
+
+.border-shadow {
+  border-bottom: 1px solid $focus-input;
+  box-shadow: 0 1px 0 0 $focus-input;
+}
+
+.active-chip {
+  background: coral !important;
+}
+
+.validate {
+  @extend %input-validate;
+  background: coral;
+
+}
+
+.success.task {
+  @extend %input-validate;
+  background: $hover-button;
+}
+
+.wrong {
+  border-bottom: 1px solid coral !important;
+}
+
+:focus.wrong {
+    box-shadow: 0 1px 0 0 coral !important;
+}
+
+.a-submit {
+  display: none;
+}
+
+.wrap-form {
+  max-width: 750px;
+  margin: auto;
+}
+
+::-webkit-input-placeholder { opacity: $placeholder-opacity }
+::-moz-placeholder          { opacity: $placeholder-opacity }
+:-moz-placeholder           { opacity: $placeholder-opacity }
+:-ms-input-placeholder      { opacity: $placeholder-opacity }
+

@@ -1,0 +1,24 @@
+<div class="wrap-form">
+    <div class="title-text">create</div>
+    <form id="add-task" class="add-task" autocomplete="off">
+        <div class="wrap-input">
+            <input type="text" id="title" name="title" class="label title">
+            <label for="title">Title</label>
+        </div>
+        <div class="wrap-input__chips">
+            <input type="text" class="chips" name="chips" placeholder="Enter tags">
+        </div>
+        <div class="wrap-input">
+            <input type="text" class="date-picker-modal" name="date" placeholder="Enter Date">
+        </div>
+        <div class="wrap-input wrap-text-area" >
+            <textarea id="descript" rows="1" class="label text-area-flexible" name="desc"></textarea>
+            <label for="descript">Description</label>
+            <span class="character-counter">0/2048</span>
+        </div>
+        <div class="wrap-submit">
+            <input type="button" class="submit" value="Create task">
+        </div>
+    </form>
+</div>
+<a href="/list" class="a-submit"></a>

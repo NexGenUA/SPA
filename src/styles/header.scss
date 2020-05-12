@@ -1,0 +1,45 @@
+$menu-hover-link: #2bbbad;
+$menu-active-link: #2bbbad;
+$menu-height: 70px;
+@import './var.scss';
+
+
+.menu {
+  background: $brand-color;
+  display: flex;
+  height: $menu-height;
+  list-style: none;
+  justify-content: flex-end;
+  padding: 0 15px;
+  
+  & li {
+    height: inherit;
+
+    & a {
+      color: white;
+      text-decoration: none;
+      padding: 0 20px;
+      display: table-cell;
+      vertical-align: middle;
+      height: inherit;
+      text-transform: capitalize;
+      transition: background-color .3s;
+    }
+
+    &:first-child  {
+      text-transform: capitalize;
+      color: white;
+      font-size: 2rem;
+      margin: 15px auto auto 10px;
+    }
+
+    & a:hover {
+      background: $menu-hover-link;
+    }
+
+  }
+}
+
+.active-menu-link {
+  background: $menu-active-link;
+}

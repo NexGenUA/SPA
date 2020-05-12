@@ -1,0 +1,20 @@
+%label-active {
+  transform: translateY(-20px);
+  font-size: .8em;
+  opacity: 1 !important;
+  color: $focus-input;
+}
+
+%input-validate {
+  position: absolute;
+  align-self: start;
+  top: -25px;
+  left: 0;
+  color: white;
+  font-size: .8rem;
+  padding: 10px 15px;
+  border-radius: 10px;
+  animation-name: scale-show;
+  animation-duration: 300ms;
+  white-space: nowrap;
+}

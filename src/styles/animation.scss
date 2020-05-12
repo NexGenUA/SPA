@@ -1,0 +1,30 @@
+@keyframes scale-show {
+  from {
+    transform: scale(.6);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes scale-hide {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(.6);
+    opacity: 0;
+  }
+}
+
+@keyframes hover {
+  from {
+    background: rgba(0,0,0, .5);
+  }
+  to {
+    background: rgba(0,0,0, 0);
+  }
+}

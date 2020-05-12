@@ -1,0 +1,14 @@
+* {
+  box-sizing: border-box;
+  font-family: Roboto, Oxygen-Sans, "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+  padding: 0;
+}
+
+@import 'header.scss';
+@import 'form.scss';
+@import 'date-picker';
+@import 'list';
+@import 'task';
+@import 'spinner';

@@ -1,0 +1,322 @@
+@import 'animation';
+
+@font-face {
+  font-family: 'FontAwesome';
+  src: url('./fonts/fontawesome-webfont.eot?v=4.7.0');
+  src: url('./fonts/fontawesome-webfont.eot?#iefix&v=4.7.0') format('embedded-opentype'), url('./fonts/fontawesome-webfont.woff2?v=4.7.0') format('woff2'), url('./fonts/fontawesome-webfont.woff?v=4.7.0') format('woff'), url('./fonts/fontawesome-webfont.ttf?v=4.7.0') format('truetype'), url('./fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.td-active {
+  border-radius: 30px;
+  border: none;
+  color: white;
+  background: $brand-color;
+
+  :first-child {
+    color: white !important;
+    opacity: 1 !important;
+  }
+}
+
+.hover {
+  animation-name: hover !important;
+  animation-duration: 200ms !important;
+}
+
+.scale-hide {
+  animation-name: scale-hide !important;
+  animation-duration: 200ms !important;
+}
+
+.hover-modal {
+  height: 100vh;
+  width: 100vw;
+  background: rgba(0,0,0, .5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+}
+
+.current-date {
+  :first-child {
+    color: $brand-color;
+    opacity: 1;
+  }
+}
+
+.date-picker {
+  margin: auto;
+  height: auto;
+  display: flex;
+  animation-name: scale-show;
+  animation-duration: 300ms;
+
+  .datepicker-date-display {
+    background: $brand-color;
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    padding: 20px;
+    margin-left: 30px;
+
+    .year-text {
+      color: rgba(255,255,255,0.7);
+      font-size: 1.4rem;
+      font-weight: bolder;
+    }
+
+    .date-text {
+      color: white;
+      font-size: 2.2rem;
+      font-weight: bolder;
+    }
+
+  }
+
+  .datepicker-calendar-container {
+    min-width: 350px;
+    margin-right: 30px;
+    background: white;
+    position: relative;
+    height: 360px;
+
+    .datepicker-table-wrapper {
+
+      & table {
+        margin: auto;
+
+        & tr {
+
+          & th {
+            height: 15px;
+            padding-bottom: 15px;
+
+            & abbr {
+              text-decoration: none;
+              color: #999;
+            }
+          }
+
+          & td {
+
+            & button {
+              border: none;
+              background: rgba(0,0,0,0);
+              width: 30px;
+              height: 30px;
+              margin: 5px 7px;
+              opacity: .8;
+              font-size: .9rem;
+              cursor: pointer;
+
+              &:focus {
+                outline: none;
+              }
+
+              &:hover {
+                opacity: .5;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .datepicker-footer {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: -10px;
+      left: 190px;
+      bottom: 0;
+      position: absolute;
+
+      & button {
+        border: none;
+        background: none;
+        margin: 10px 5px;
+        text-transform: uppercase;
+        color: $brand-color;
+        opacity: 1;
+        cursor: pointer;
+        padding: 10px;
+        transition: background-color .3s;
+
+        &:focus {
+          outline: none;
+        }
+
+        &:hover {
+          background: #eee;
+          border-radius: 5px;
+        }
+
+        &:last-child {
+          margin-right: 25px;
+        }
+      }
+    }
+  }
+
+  .datepicker-controls {
+    display: flex;
+    padding: 11px 10px 0 10px ;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+    & button {
+      width: 40px;
+      height: 40px;
+      background: none;
+      outline: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      opacity: .9;
+      font-family: FontAwesome, serif;
+
+      &:hover {
+        opacity: .5;
+      }
+    }
+
+    .selects-container {
+      display: flex;
+      align-items: center;
+
+      .select-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        & input {
+          outline: none;
+          border: none;
+          z-index: 1;
+          width: 80px;
+          text-align: center;
+          cursor: pointer;
+          font-size: 1rem;
+
+          &:hover {
+            opacity: .5;
+          }
+        }
+      }
+    }
+
+    & select {
+      padding: 0 5px;
+      font-size: 1rem;
+      border: none;
+      outline: none;
+      appearance: none;
+      -webkit-appearance: none;
+      display: none;
+
+
+      & option {
+        outline: none;
+        border: none;
+      }
+    }
+  }
+
+  @media (max-width: 650px) {
+    flex-direction: column;
+
+
+    .datepicker-date-display {
+      width: 350px;
+      margin: 0 auto;
+    }
+
+    .datepicker-calendar-container {
+      width: 350px;
+      margin: 0 auto;
+
+      .datepicker-calendar {
+        height: auto;
+      }
+    }
+  }
+}
+
+.month-modal {
+
+  position: absolute;
+  left: calc(50vw + 20px);
+  top: 15vh;
+  overflow: auto;
+  list-style: none;
+  z-index: 100;
+  min-width: 100px;
+  max-height: 80vh;
+  display: none;
+  animation-name: scale-show;
+  animation-duration: 300ms;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),
+  0 3px 1px -2px rgba(0,0,0,0.12),
+  0 1px 5px 0 rgba(0,0,0,0.2);
+  background: white;
+
+  & li {
+   color: $brand-color;
+   min-height: 50px;
+   padding: 15px;
+   cursor: pointer;
+
+   &.active-month {
+     background: #f5f5f5;
+   }
+
+   &:hover {
+     background: #eee;
+   }
+  }
+
+  @media (max-width: 650px) {
+   left: calc(50vw - 100px);
+  }
+}
+
+.years-modal {
+
+  position: absolute;
+  left: calc(50vw + 130px);
+  top: 5vh;
+  list-style: none;
+  z-index: 100;
+  overflow: auto;
+  min-width: 100px;
+  max-height: 90vh;
+  display: none;
+  animation-name: scale-show;
+  animation-duration: 300ms;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),
+  0 3px 1px -2px rgba(0,0,0,0.12),
+  0 1px 5px 0 rgba(0,0,0,0.2);
+  background: white;
+
+  & li {
+    color: $brand-color;
+    min-height: 50px;
+    padding: 15px;
+    cursor: pointer;
+
+    &.active-year {
+      background: #f5f5f5;
+    }
+
+    &:hover {
+      background: #eee;
+    }
+  }
+
+  @media (max-width: 650px) {
+    left: calc(50vw);
+  }
+}
+
