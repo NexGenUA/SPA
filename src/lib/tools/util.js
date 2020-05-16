@@ -5,11 +5,19 @@ const util = {
     })
   },
 
-  getIds() {
-    const ids = new Set();
-    if (localStorage.length) {
-      for (const id of Object.values(localStorage)) {
-        ids.add(JSON.parse(id).id);
+  async getIds() {
+    const ids = new Set(['all', 'active', 'outdated', 'completed']);
+    const hover = this.hover();
+    const fetchData = await fetch('https://spa-project-app.firebaseio.com/tasks.json');
+    const tasks = await fetchData.json();
+    hover.remove();
+
+    if (tasks) {
+
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+      
+      for (const key of Object.keys(tasks)) {
+        ids.add(key);
       }
     }
     return ids;
@@ -18,12 +26,7 @@ const util = {
   hover() {
     const hover = document.createElement('div');
     hover.classList.add('hover-modal');
-    hover.innerHTML = `<div class="lds-spinner">
-      <div></div><div></div><div></div>
-      <div></div><div></div><div></div>
-      <div></div><div></div><div></div>
-      <div></div><div></div><div></div>
-      </div>`;
+    hover.innerHTML = `<div class="linePreloader"></div>`;
     document.body.append(hover);
     return hover;
   }

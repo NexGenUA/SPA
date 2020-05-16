@@ -21,7 +21,7 @@ export class Component {
     for (const event in events) {
       const selectorEvent = event.split(' ');
       const el = this.el.querySelector(selectorEvent[1]);
-      el.addEventListener(selectorEvent[0], this[events[event]])
+      el.addEventListener(selectorEvent[0], this[events[event]].bind(this))
     }
   }
 }

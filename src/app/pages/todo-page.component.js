@@ -1,7 +1,7 @@
-import {Component, router, util} from "../../lib";
-import { formHandler } from "./handlers/form";
+import { Component, LocalStorage, router, util } from 'lib';
+import { formHandler } from './handlers/form';
 
-class TaskPageComponent extends Component{
+class TodoPageComponent extends Component {
   constructor(config) {
     super(config);
     this.task = true;
@@ -17,7 +17,7 @@ class TaskPageComponent extends Component{
       'click .add-task': 'onLabelFocus',
       'keydown .chips': 'onChipsAction',
       'click .chips': 'onPressChips',
-      'focusin .date-picker-modal' : 'onDatePicker',
+      'focusin .date-picker-modal': 'onDatePicker',
     }
   }
 
@@ -57,13 +57,13 @@ class TaskPageComponent extends Component{
     formHandler.labelFocus(e)
   }
 
-  onLoad() {
+  async onLoad() {
     this.renderForm();
     const el = document.querySelector('.wrap-submit');
-    const task = this.getTask();
+    const task = await this.getTask();
     task.date = new Date(task.date);
 
-    if (this.getTask().completed) {
+    if (task.completed) {
       this.completed(el);
       return;
     }
@@ -77,19 +77,24 @@ class TaskPageComponent extends Component{
     this.completeBtn();
   }
 
-  getTask() {
-    const id = +router.getUrl().slice(5);
-    let task;
-    for (const t of Object.values(localStorage)) {
-      const json = JSON.parse(t);
-      if (json.id === id) task = json;
+  async getTask() {
+    const id = router.getUrl().slice(4);
+    let task = LocalStorage.read(id);
+
+    if (!task) {
+      const fetchData = await fetch(`https://spa-project-app.firebaseio.com/tasks/${id}.json`);
+      task = await fetchData.json();
+      LocalStorage.write(id, task);
     }
+
     return task;
   }
 
-  renderForm() {
-    const task = this.getTask();
-    const { title, date, chips, desc } = task;
+  async renderForm() {
+    const hover = util.hover();
+    const task = await this.getTask();
+    hover.remove();
+    const {title, date, chips, desc} = task;
 
     const chipInput = document.querySelector('.chips');
     chips.forEach(chip => {
@@ -103,7 +108,7 @@ class TaskPageComponent extends Component{
     textarea.value = desc;
     textarea.focus();
     textarea.blur();
-    const event = new Event('input', { bubbles: true });
+    const event = new Event('input', {bubbles: true});
     textarea.dispatchEvent(event);
   }
 
@@ -127,7 +132,7 @@ class TaskPageComponent extends Component{
 
   readOnly() {
     const textarea = document.querySelector('#descript');
-    const dateInput =  document.querySelector('.date-picker-modal');
+    const dateInput = document.querySelector('.date-picker-modal');
     textarea.setAttribute('readonly', '');
     textarea.classList.add('readonly');
     dateInput.parentNode.insertAdjacentHTML('afterbegin', `<input readonly value="${dateInput.value}">`);
@@ -140,22 +145,21 @@ class TaskPageComponent extends Component{
     el.insertAdjacentHTML('afterbegin', '<span class="validate update">Task outdated</span>');
   }
 
-  btnsDisable(){
+  btnsDisable() {
     const btns = this.getBtns();
     btns.forEach(btn => btn.setAttribute('disabled', ''));
   }
 
-  updateTask(selector) {
+  async updateTask(selector) {
     const btn = document.querySelector(`.btn.${selector}`);
-    const task = this.getTask();
+    const task = await this.getTask();
 
-
-
-    btn.addEventListener('click', e => {
+    btn.addEventListener('click', async e => {
       const elements = document.forms['add-task'].elements;
       const descInput = elements['desc'].value;
       const dateInput = elements['date'].value;
       const validate = document.querySelector('.validate');
+      const id = router.getUrl().slice(4);
 
       if (validate) validate.remove();
 
@@ -172,27 +176,38 @@ class TaskPageComponent extends Component{
             btn.parentNode.insertAdjacentHTML('afterbegin', '<span class="validate update">Please fill in all fields</span>');
             return;
           }
-          util.hover();
-          setTimeout(() => {
-            document.querySelector('.hover-modal').remove();
-          }, 1000);
-          localStorage.setItem(task.title, JSON.stringify(task));
+          const hover = util.hover();
+          await fetch(`https://spa-project-app.firebaseio.com/tasks/${id}.json`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(task)
+          });
+          hover.remove();
           break;
         }
         case 'complete': {
           task.completed = true;
           this.completed(btn.parentNode);
-          localStorage.setItem(task.title, JSON.stringify(task));
+          const hover = util.hover();
+          await fetch(`https://spa-project-app.firebaseio.com/tasks/${id}.json`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(task)
+          });
+          hover.remove();
           break;
         }
       }
-
     })
   }
 }
 
-export const taskPageComponent = new TaskPageComponent({
-  selector: '#app-task-page',
-  template: require('./html/task.html'),
-  title: 'Task'
+export const todoPageComponent = new TodoPageComponent({
+  selector: '#app-todo-page',
+  template: require('./html/todo.html'),
+  title: 'TODOs'
 });

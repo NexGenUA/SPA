@@ -1,4 +1,24 @@
-<h1>list</h1>
+<div class="top">
+  <h1>list</h1>
+  <form name="form-filter" id="form-filter" class="form-filter">
+    <select name="select-filter" id="select-filter" hidden>
+      <option value="all" selected>All</option>
+      <option value="active">Active</option>
+      <option value="completed">Completed</option>
+      <option value="outdated">Outdated</option>
+    </select>
+    <ul class="select" id="select">
+      <li class="selected-value" id="selected-value">All</li>
+      <ul class="select-list" id="select-list">
+        <li class="list-items options">Choose option</li>
+        <li class="list-items filter" id="all-list">All</li>
+        <li class="list-items filter" id="active">Active</li>
+        <li class="list-items filter" id="completed">Completed</li>
+        <li class="list-items filter" id="outdated">Outdated</li>
+      </ul>
+    </ul>
+  </form>
+</div>
 <table class="list">
   <thead>
 

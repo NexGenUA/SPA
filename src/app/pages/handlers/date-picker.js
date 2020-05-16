@@ -7,7 +7,7 @@ class ShowDatePicker {
   }
   init(e) {
 
-    setTimeout(() => this.show(e),0);
+    setTimeout(() => this.show(e), 0);
 
     datePicker.render();
   }
@@ -86,7 +86,7 @@ class ShowDatePicker {
         Array.from(tds).map(el => +el.textContent === selected ? el.classList.add('td-active') : el);
       };
 
-      if (el.classList.contains('month-prev')) {
+      if (el.closest('.month-prev')) {
         this.date.setMonth(this.date.getMonth() - 1);
         renderDate(this.date, true);
         updateCalendar();
@@ -94,7 +94,7 @@ class ShowDatePicker {
         selectedDate();
       }
 
-      if (el.classList.contains('month-next')) {
+      if (el.closest('.month-next')) {
         this.date.setMonth(this.date.getMonth() + 1);
         renderDate(this.date, true);
         updateCalendar();
