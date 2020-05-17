@@ -96,7 +96,10 @@ class TodoPageComponent extends Component {
     hover.remove();
     const {title, date, chips, desc} = task;
 
+    document.title = `TODO - ${title[0].toUpperCase()}${title.slice(1)}`;
+
     const chipInput = document.querySelector('.chips');
+
     chips.forEach(chip => {
       chipInput.insertAdjacentHTML('beforebegin', `
         <div class="chip"><span>${chip}</span></div>
@@ -104,7 +107,9 @@ class TodoPageComponent extends Component {
     });
     document.querySelector('.title-text').textContent = title;
     document.querySelector('.date-picker-modal').value = new Date(date).toLocaleDateString('ru');
+
     const textarea = document.querySelector('#descript');
+
     textarea.value = desc;
     textarea.focus();
     textarea.blur();
@@ -185,6 +190,7 @@ class TodoPageComponent extends Component {
             body: JSON.stringify(task)
           });
           hover.remove();
+          btn.parentNode.insertAdjacentHTML('afterbegin', '<span class="validate complete">Task Updated</span>');
           break;
         }
         case 'complete': {

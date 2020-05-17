@@ -37,6 +37,7 @@
     "webpack-dev-server": "^3.10.1"
   },
   "dependencies": {
-    "mime": "^2.4.4"
+    "mime": "^2.4.4",
+    "express": "latest"
   }
 }

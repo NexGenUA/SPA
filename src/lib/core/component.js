@@ -8,7 +8,7 @@ export class Component {
 
   render() {
     this.el = document.querySelector(this.selector);
-    if (!this.el) throw new Error(`Component with selector ${this.selector} not fount`);
+    if (!this.el) throw new Error(`Component with selector ${this.selector} not found`);
     this.el.innerHTML = this.template;
     this._initEvents();
   }

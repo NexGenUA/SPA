@@ -10,6 +10,7 @@ module.exports = {
   output: {
     filename: '[contenthash].bundle.js',
     path: path.resolve(__dirname, 'public'),
+    publicPath: "/"
   },
 
   devServer: {
