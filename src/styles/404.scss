@@ -1,0 +1,43 @@
+.not-found {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  color: #646464;
+  flex-direction: column;
+  align-items: center;
+
+  & .not-found__image {
+    background-image: url(../assets/404.gif);
+    background-size: 300px 300px;
+    width: 300px;
+    height: 240px;
+  }
+
+  & .not-found__h2 {
+    font-size: 65px;
+    font-weight: 900;
+    margin: 0 0 0 20px;
+    @media screen and (max-width: 400px){
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+  }
+
+  & .not-found__message {
+    font-size: 28px;
+    margin: 0 10px;
+    font-weight: 300;
+    white-space: nowrap;
+  }
+
+  & .not-found__link {
+    display: inline-block;
+    color: white;
+    background-color: #44a8f0;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-left: 20px;
+  }
+}

@@ -35,10 +35,8 @@ class FormHandler {
 
     if (type === 'focusout') {
       chipsWrap.parentNode.classList.remove('border-shadow');
-      // console.log('chipsWrap.value' ,chipsWrap.value);
       if (chipsWrap.value === '') return;
        this.createChips(chipsWrap.value);
-      // chipsWrap.value = '';
     }
   }
 
@@ -109,7 +107,7 @@ class FormHandler {
     showDatePicker.init(e);
   }
 
-  submit({ target }) {
+  async submit({ target }) {
     const form = document.forms['add-task'];
     const title = form.elements['title'].value.trim();
     const desc = form.elements['desc'].value.trim();
@@ -136,14 +134,8 @@ class FormHandler {
 
     const fieldsWrong = document.querySelector('.validate.fields');
 
-    if (fieldsWrong) fieldsWrong.remove();
-
-    if (localStorage.getItem(title)) {
-      if (this.titleWrong) return;
-      this.titleWrong = true;
-      target.insertAdjacentHTML('beforebegin', '<span class="validate title">The task with the same name already exists</span>');
-      form.elements['title'].classList.add('wrong');
-      return;
+    if (fieldsWrong) {
+      fieldsWrong.remove();
     }
 
     this.titleWrong = false;
@@ -166,7 +158,15 @@ class FormHandler {
       desc
     };
 
-    localStorage.setItem(toStorage.title, JSON.stringify(toStorage));
+    const response = await fetch(`https://spa-project-app.firebaseio.com/tasks.json`, {
+      method: 'POST',
+      body: JSON.stringify(toStorage),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    const result = await response.json();
 
     const aSubmit = document.querySelector('.a-submit');
     const clickSubmit = new Event('click', {
@@ -176,11 +176,13 @@ class FormHandler {
     fetch('/addtask', {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain; charset=UTF-8' },
-      body: JSON.stringify(toStorage.id)
+      body: JSON.stringify(result.name)
     }).then(res => {
       hover.remove();
       this.allTags.clear();
-      if (res.ok) aSubmit.dispatchEvent(clickSubmit);
+      if (res.ok) {
+        aSubmit.dispatchEvent(clickSubmit);
+      }
     })
   }
 
@@ -224,7 +226,6 @@ class FormHandler {
     }
 
     this.tags.value = '';
-    return;
   }
 }
 

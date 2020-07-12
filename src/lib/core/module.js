@@ -1,5 +1,4 @@
-import { router } from "../tools/router";
-import { util } from "../tools/util";
+import { LocalStorage, util, router } from "lib";
 
 export class MainModule {
   constructor(config) {
@@ -21,12 +20,16 @@ export class MainModule {
 
   initRoutes() {
     document.querySelector('#main-container').addEventListener('click', e => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'LABEL' || e.target.classList.contains('page-number')) {
+        return;
+      }
       e.preventDefault();
       let state;
       const link = e.target;
       if (link.tagName !== 'A') return;
+      const newLink = link.getAttribute('href');
       state = {
-        page: link.getAttribute('href')
+        page: newLink === 'list' ? 'list?filter=all&page=1' : newLink,
       };
       history.pushState(state, '', state.page);
       this.renderRoute();
@@ -37,12 +40,35 @@ export class MainModule {
     })
   }
 
-  renderRoute() {
-    const ids = util.getIds();
+  async renderRoute() {
+
+
     const url = router.getUrl();
+
     let route = this.routes.find(r => r.path === url);
-    if (!route && ids.has(+url.slice(5))) route = this.routes[1];
-    if (!route) route = this.routes[0];
+    
+    if (!route) {
+      const ids = await util.getIds();
+      const id = url.slice(4);     
+
+      if (ids.has(id)) {
+        const tasks = LocalStorage.read('tasks');
+        localStorage.clear();
+        const task = tasks[id];
+        LocalStorage.write(id, task);
+
+        route = this.routes[1];
+      } else {
+        route = this.routes[0];
+      }
+    }
+
+    const path = location.pathname + location.search;
+    const check = await fetch(location.href);
+    if (check.status === 404 || path === '/list') {
+      route = this.routes[0];
+    }
+
     document.querySelector('#router-outlet').innerHTML = `<div id="${route.component.selector.slice(1)}"></div>`;
     document.title = route.component.title;
     this.renderComponent(route.component);

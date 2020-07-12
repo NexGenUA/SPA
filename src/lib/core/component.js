@@ -8,7 +8,7 @@ export class Component {
 
   render() {
     this.el = document.querySelector(this.selector);
-    if (!this.el) throw new Error(`Component with selector ${this.selector} not fount`);
+    if (!this.el) throw new Error(`Component with selector ${this.selector} not found`);
     this.el.innerHTML = this.template;
     this._initEvents();
   }
@@ -21,7 +21,7 @@ export class Component {
     for (const event in events) {
       const selectorEvent = event.split(' ');
       const el = this.el.querySelector(selectorEvent[1]);
-      el.addEventListener(selectorEvent[0], this[events[event]])
+      el.addEventListener(selectorEvent[0], this[events[event]].bind(this))
     }
   }
 }

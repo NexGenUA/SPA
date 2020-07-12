@@ -151,9 +151,12 @@
   }
 }
 
-.border-shadow {
-  border-bottom: 1px solid $focus-input;
-  box-shadow: 0 1px 0 0 $focus-input;
+#add-task {
+
+  & .wrap-input__chips.border-shadow {
+    border-bottom: 1px solid $focus-input !important;
+    box-shadow: 0 1px 0 0 $focus-input !important;
+  }
 }
 
 .active-chip {

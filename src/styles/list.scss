@@ -4,7 +4,7 @@
   max-width: 1200px;
   align-items: center;
   padding: 0 30px;
-  margin: 10vh auto;
+  margin: 5vh auto;
   position: relative;
 
   h1 {
@@ -64,9 +64,10 @@
   }
 
   @media (max-width: 650px) {
+    margin: 10px auto;
     padding: 0 5px;
     table {
-      font-size: .8rem;
+      font-size: .7rem;
 
       tr {
 
@@ -76,6 +77,27 @@
 
         td {
           padding: 5px;
+
+          &.title {
+            max-width: 55px;
+          }
+
+          .resize {
+            max-width: 60px;
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 380px) {
+
+    table {
+      font-size: .6rem;
+
+      & td {
+        & button a {
+          padding: 6px 8px;
         }
       }
     }
@@ -114,5 +136,156 @@
     text-decoration: none;
     display: block;
     padding: 10px 15px;
+  }
+}
+
+.pagination {
+  display: flex;
+  margin-top: 15px;
+
+  & span:hover {
+    background-color: rgb(240, 240, 240);
+    border-radius: 2px;
+  }
+
+  & input{
+    display: none;
+  }
+
+  & .page-number {
+    display: inline-block;
+    padding: 4px 8px 4px 6px;
+    color: rgb(100, 100, 100);
+    cursor: pointer;
+  }
+
+  & input:checked + .page-number{
+    color: rgb(250, 250, 250);
+    background-color: $brand-color;
+    border-radius: 2px;
+  }
+}
+
+.top {
+  display: flex;
+  justify-content: flex-start;
+  align-self: flex-start;
+
+  & .list-items {
+    list-style: none;
+    padding: 15px 20px;
+    width: 150px;
+    cursor: pointer;
+
+    &.options {
+      cursor: default;
+      background-color: rgb(240, 240, 240);
+      color: rgb(180, 180, 180);
+
+      &:hover {
+        background-color: rgb(240, 240, 240);
+      }
+    }
+
+    &:hover {
+      color: rgb(120, 120, 120);
+      background-color: rgb(230, 230, 230);
+    }
+
+    &.active {
+      color: rgb(250, 250, 250);
+      background-color: $brand-color;
+    }
+  }
+
+  & .select {
+    position: relative;
+  }
+
+  & .select-list {
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    transform: scale(0);
+    transform-origin: top left;
+    transition: all .2s ease;
+    background-color: white;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),
+                0 3px 1px -2px rgba(0,0,0,0.12),
+                0 1px 5px 0 rgba(0,0,0,0.2);
+
+    &.show {
+      transform: scale(1);
+    }
+  }
+}
+
+.selected-value {
+  list-style: none;
+  position: absolute;
+  top: 18px;
+  margin-left: 20px;
+  text-transform: capitalize;
+  width: 130px;
+  border-bottom: 1px solid rgb(185, 185, 185);
+  padding: 5px 10px;
+  cursor: pointer;
+
+  &:after {
+    content: url(../arrow.svg);
+    position: absolute;
+    right: 5px;
+  }
+
+  &:hover {
+    color: rgb(130, 130, 130);
+    &:after {
+     opacity: .5;
+    }
+  }
+}
+
+.prev {
+  display: flex;
+  margin-right: 5px;
+}
+
+.next {
+  display: flex;
+  margin-left: 5px;
+}
+
+.pagination {
+
+  & .start {
+    display: flex;
+    font-size: 19px;
+    font-weight: 300;
+    align-items: center;
+    transform: rotateY(180deg);
+  }
+
+  & .end {
+    display: flex;
+    font-size: 19px;
+    font-weight: 300;
+    align-items: center;
+  }
+}
+
+.prev,
+.next {
+  cursor: pointer;
+  color: rgb(100, 100, 100);
+
+  & span {
+    display: inline-block;
+    height: 26px;
+  }
+
+  & span:hover {
+    background-color: #42a5f5;
+    color: rgb(250, 250, 250);
+    border-radius: 2px;
   }
 }

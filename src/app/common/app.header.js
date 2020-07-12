@@ -1,4 +1,4 @@
-import { Component } from "../../lib";
+import { Component } from "lib";
 
 class AppHeader extends Component{
   constructor(config) {

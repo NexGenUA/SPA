@@ -59,11 +59,12 @@ class CreatePageComponent extends Component {
 
   onLoad() {
     sessionStorage.clear();
+    localStorage.clear();
   }
 }
 
 export const createPageComponent = new CreatePageComponent({
   selector: '#app-create-page',
   template: require('./html/create.html'),
-  title: 'Create Task'
+  title: 'TODOs'
 });
